@@ -88,9 +88,12 @@ namespace BankingApp
             // Handle insufficient fund
                 if (amountTransfer > fromBalance)
                 {
-                    MessageBox.Show("Error! You have insufficient fund. Enter another amount");
-                    Keyboard.Focus(amountTextBox);
-                    amountTextBox.SelectAll();
+                    if ((fromRadioButtonChecked == "ChequeRadioButton") && (amountTransfer + 2 > fromBalance))
+                    {
+                        MessageBox.Show("Error! You have insufficient fund. Enter another amount");
+                        Keyboard.Focus(amountTextBox);
+                        amountTextBox.SelectAll();
+                    }
                 }
                 else
                 {
@@ -133,21 +136,21 @@ namespace BankingApp
                             break;
 
                         case "ChequeRadioButtonOn&SavingsRadioButtonOn":  // from Cheque to Savings
-                            fromBalance = fromBalance - amountTransfer;
+                            fromBalance = fromBalance - amountTransfer - 2.00m;
                             cChequeBalance = fromBalance;
                             fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
-                            toBalance = toBalance + amountTransfer;
+                            toBalance = toBalance + amountTransfer - 2.00m;
                             cSavingsBalance = toBalance;
                             toBalanceLabel.Content = cSavingsBalance.ToString("C");
                             break;
 
                         case "ChequeRadioButtonOn&InvestmentRadioButtonOn":   // from Cheque to Investment
-                            fromBalance = fromBalance - amountTransfer;
+                            fromBalance = fromBalance - amountTransfer - 2.00m;
                             cChequeBalance = fromBalance;
                             fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
-                            toBalance = toBalance + amountTransfer;
+                            toBalance = toBalance + amountTransfer - 2.00m;
                             cInvestmentBalance = toBalance;
                             toBalanceLabel.Content = cInvestmentBalance.ToString("C");
                             break;
